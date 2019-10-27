@@ -6,25 +6,28 @@ program:
     ('Ваша верная ученица'|'Ваш верный ученик') COMMA variable DOT;
 
 body:
-    statements endLine
+    statements DOT
     ;
 
 statements:
-    statement (endLine statement)*;
-
-endLine:
-    DOT | QUESTION;
+    statement (DOT statement)*;
 
 statement
     : say
     | assignmentStatement
+    | assignmentMinus
     ;
 
 say:
     'Я сказал' 'а'? expressions;
 
+// var = expr
 assignmentStatement:
-    'Вы знали, что' variable 'нравится' expression;
+    variable 'нравится' expression;
+
+// var -= const_int
+assignmentMinus:
+    variable COMMA 'вычти' CONST_INT;
 
 expressions:
     expression+;
@@ -40,7 +43,7 @@ variable:
 
 DOT: '.';
 COMMA: ',';
-QUESTION: '?';
+//QUESTION: '?';
 //COLON: ':';
 
 //MINUS: '-';
